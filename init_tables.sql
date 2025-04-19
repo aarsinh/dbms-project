@@ -6,15 +6,13 @@ CREATE TABLE doctors (
     yrs_exp INTEGER NOT NULL
 );
 
-
--- Create patient table
+-- Create patient table (FK to be added later)
 CREATE TABLE patients (
     aadharID VARCHAR2(12) PRIMARY KEY NOT NULL,
     pname VARCHAR2(50) NOT NULL,
     age INTEGER NOT NULL,
     home_address VARCHAR2(50) NOT NULL,
-    primary_physician VARCHAR2(12) NOT NULL,
-    FOREIGN KEY(primary_physician) REFERENCES doctors(aadharID)
+    primary_physician VARCHAR2(12) NOT NULL
 );
 
 -- Create pharmacies table
@@ -30,25 +28,22 @@ CREATE TABLE pharma_companies (
     phone VARCHAR2(50) NOT NULL
 );
 
--- Create drug table
+-- Create drug table (FK to be added later)
 CREATE TABLE drugs (
     trdname VARCHAR2(50) NOT NULL,
     pcname VARCHAR2(50) NOT NULL,
     formula VARCHAR2(50) NOT NULL,
-    PRIMARY KEY(trdname, pcname),
-    FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname)
+    PRIMARY KEY(trdname, pcname)
 );
 
--- Create consults table(relship between patient and doctor)
+-- Create consultations table (FKs to be added later)
 CREATE TABLE consultations (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
-    PRIMARY KEY(doctorID, patientID),
-    FOREIGN KEY(doctorID) REFERENCES doctors(aadharID),
-    FOREIGN KEY(patientID) REFERENCES patients(aadharID)
+    PRIMARY KEY(doctorID, patientID)
 );
 
--- Create prescriptions table(relship between patient, drug, doctor)
+-- Create prescriptions table (FKs to be added later)
 CREATE TABLE prescriptions (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
@@ -56,24 +51,19 @@ CREATE TABLE prescriptions (
     pcname VARCHAR2(50) NOT NULL,
     prescription_date DATE NOT NULL,
     quantity INTEGER NOT NULL, 
-    PRIMARY KEY(doctorID, patientID, drug_name, pcname),
-    FOREIGN KEY(doctorID) REFERENCES doctors(aadharID),
-    FOREIGN KEY(patientID) REFERENCES patients(aadharID),
-    FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname)
+    PRIMARY KEY(doctorID, patientID, drug_name, pcname)
 );
 
--- Create drug sales table(relationship between pharma and drug)
+-- Create drug sales table (FKs to be added later)
 CREATE TABLE drug_sales (
     phname VARCHAR2(50) NOT NULL,
     drug_name VARCHAR2(50) NOT NULL,
     pcname VARCHAR2(50) NOT NULL,
     drug_price DECIMAL(10, 2) NOT NULL,
-    PRIMARY KEY(phname, drug_name, pcname),
-    FOREIGN KEY (phname) REFERENCES pharmacies(phname),
-    FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname)
+    PRIMARY KEY(phname, drug_name, pcname)
 );
 
--- Create contracts table(relship between pc and pharma)
+-- Create contracts table (FKs to be added later)
 CREATE TABLE contracts (
     pcname VARCHAR2(50) NOT NULL,
     phname VARCHAR2(50) NOT NULL,
@@ -81,7 +71,50 @@ CREATE TABLE contracts (
     end_date DATE NOT NULL,
     content VARCHAR2(1000) NOT NULL,
     supervisorID VARCHAR2(50) NOT NULL,
-    PRIMARY KEY (pcname, phname),
-    FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname),
-    FOREIGN KEY (phname) REFERENCES pharmacies(phname)
+    PRIMARY KEY (pcname, phname)
 );
+
+-- ADDING FOREIGN KEY CONSTRAINTS
+ALTER TABLE patients
+ADD CONSTRAINT fk_patients_doctor FOREIGN KEY (primary_physician)
+REFERENCES doctors(aadharID);
+
+ALTER TABLE drugs
+ADD CONSTRAINT fk_drugs_company FOREIGN KEY (pcname)
+REFERENCES pharma_companies(pcname);
+
+ALTER TABLE consultations
+ADD CONSTRAINT fk_consultations_doctor FOREIGN KEY (doctorID)
+REFERENCES doctors(aadharID);
+
+ALTER TABLE consultations
+ADD CONSTRAINT fk_consultations_patient FOREIGN KEY (patientID)
+REFERENCES patients(aadharID);
+
+ALTER TABLE prescriptions
+ADD CONSTRAINT fk_presc_doctor FOREIGN KEY (doctorID)
+REFERENCES doctors(aadharID);
+
+ALTER TABLE prescriptions
+ADD CONSTRAINT fk_presc_patient FOREIGN KEY (patientID)
+REFERENCES patients(aadharID);
+
+ALTER TABLE prescriptions
+ADD CONSTRAINT fk_presc_drug FOREIGN KEY (drug_name, pcname)
+REFERENCES drugs(trdname, pcname);
+
+ALTER TABLE drug_sales
+ADD CONSTRAINT fk_sales_pharmacy FOREIGN KEY (phname)
+REFERENCES pharmacies(phname);
+
+ALTER TABLE drug_sales
+ADD CONSTRAINT fk_sales_drug FOREIGN KEY (drug_name, pcname)
+REFERENCES drugs(trdname, pcname);
+
+ALTER TABLE contracts
+ADD CONSTRAINT fk_contracts_company FOREIGN KEY (pcname)
+REFERENCES pharma_companies(pcname);
+
+ALTER TABLE contracts
+ADD CONSTRAINT fk_contracts_pharmacy FOREIGN KEY (phname)
+REFERENCES pharmacies(phname);
