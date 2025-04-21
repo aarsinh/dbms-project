@@ -24,7 +24,6 @@ BEGIN
             d.dname AS doctor_name,
             p.drug_name,
             p.pcname,
-            prc.formula,
             p.prescription_date,
             p.quantity
         FROM 
