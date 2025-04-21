@@ -6,8 +6,7 @@ CREATE TABLE doctors (
     yrs_exp INTEGER NOT NULL
 );
 
-
--- Create patient table
+-- Create patient table (FK to be added later)
 CREATE TABLE patients (
     aadharID VARCHAR2(12) PRIMARY KEY NOT NULL,
     pname VARCHAR2(50) NOT NULL,
@@ -30,7 +29,7 @@ CREATE TABLE pharma_companies (
     phone VARCHAR2(50) NOT NULL
 );
 
--- Create drug table
+-- Create drug table (FK to be added later)
 CREATE TABLE drugs (
     trdname VARCHAR2(50) NOT NULL,
     pcname VARCHAR2(50) NOT NULL,
@@ -39,7 +38,7 @@ CREATE TABLE drugs (
     FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname) ON DELETE CASCADE
 );
 
--- Create consults table(relship between patient and doctor)
+-- Create consultations table (FKs to be added later)
 CREATE TABLE consultations (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
@@ -48,7 +47,7 @@ CREATE TABLE consultations (
     FOREIGN KEY(patientID) REFERENCES patients(aadharID) ON DELETE CASCADE
 );
 
--- Create prescriptions table(relship between patient, drug, doctor)
+-- Create prescriptions table (FKs to be added later)
 CREATE TABLE prescriptions (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
@@ -62,7 +61,7 @@ CREATE TABLE prescriptions (
     FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE
 );
 
--- Create drug sales table(relationship between pharma and drug)
+-- Create drug sales table (FKs to be added later)
 CREATE TABLE drug_sales (
     phname VARCHAR2(50) NOT NULL,
     drug_name VARCHAR2(50) NOT NULL,
@@ -73,7 +72,7 @@ CREATE TABLE drug_sales (
     FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE
 );
 
--- Create contracts table(relship between pc and pharma)
+-- Create contracts table (FKs to be added later)
 CREATE TABLE contracts (
     pcname VARCHAR2(50) NOT NULL,
     phname VARCHAR2(50) NOT NULL,
