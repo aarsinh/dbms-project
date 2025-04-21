@@ -6,7 +6,7 @@ CREATE TABLE doctors (
     yrs_exp INTEGER NOT NULL
 );
 
--- Create patient table (FK to be added later)
+-- Create patient table
 CREATE TABLE patients (
     aadharID VARCHAR2(12) PRIMARY KEY NOT NULL,
     pname VARCHAR2(50) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE pharma_companies (
     phone VARCHAR2(50) NOT NULL
 );
 
--- Create drug table (FK to be added later)
+-- Create drug table
 CREATE TABLE drugs (
     trdname VARCHAR2(50) NOT NULL,
     pcname VARCHAR2(50) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE drugs (
     FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname) ON DELETE CASCADE
 );
 
--- Create consultations table (FKs to be added later)
+-- Create consultations table 
 CREATE TABLE consultations (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE consultations (
     FOREIGN KEY(patientID) REFERENCES patients(aadharID) ON DELETE CASCADE
 );
 
--- Create prescriptions table (FKs to be added later)
+-- Create prescriptions table
 CREATE TABLE prescriptions (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
@@ -55,13 +55,13 @@ CREATE TABLE prescriptions (
     pcname VARCHAR2(50) NOT NULL,
     prescription_date DATE NOT NULL,
     quantity INTEGER NOT NULL, 
-    PRIMARY KEY(doctorID, patientID, drug_name, pcname),
+    PRIMARY KEY(doctorID, patientID, drug_name, pcname, prescription_date),
     FOREIGN KEY(doctorID) REFERENCES doctors(aadharID) ON DELETE CASCADE,
     FOREIGN KEY(patientID) REFERENCES patients(aadharID) ON DELETE CASCADE,
     FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE
 );
 
--- Create drug sales table (FKs to be added later)
+-- Create drug sales table 
 CREATE TABLE drug_sales (
     phname VARCHAR2(50) NOT NULL,
     drug_name VARCHAR2(50) NOT NULL,
@@ -72,15 +72,15 @@ CREATE TABLE drug_sales (
     FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE
 );
 
--- Create contracts table (FKs to be added later)
+-- Create contracts table 
 CREATE TABLE contracts (
     pcname VARCHAR2(50) NOT NULL,
     phname VARCHAR2(50) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    content VARCHAR2(1000) NOT NULL,
+    content CLOB NOT NULL,
     supervisorID VARCHAR2(50) NOT NULL,
-    PRIMARY KEY (pcname, phname),
+    PRIMARY KEY (pcname, phname, start_date),
     FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname) ON DELETE CASCADE,
     FOREIGN KEY (phname) REFERENCES pharmacies(phname) ON DELETE CASCADE
 );
