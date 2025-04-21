@@ -6,15 +6,13 @@ CREATE OR REPLACE PROCEDURE print_prescription_details (
     v_first_row BOOLEAN := TRUE;
 
     -- Primary Physician Info
-    v_patient_name      patients.name%TYPE;
+    v_patient_name      patients.pname%TYPE;
     v_physician_id      patients.primary_physician%TYPE;
     v_physician_name    doctors.dname%TYPE;
-    v_specialty         doctors.specialty%TYPE;
-    v_experience        doctors.experience%TYPE;
 BEGIN
     -- Fetch patient name and primary physician details
-    SELECT p.name, p.primary_physician, d.dname, d.specialty, d.experience
-    INTO v_patient_name, v_physician_id, v_physician_name, v_specialty, v_experience
+    SELECT p.pname, p.primary_physician, d.dname
+    INTO v_patient_name, v_physician_id, v_physician_name
     FROM patients p
     JOIN doctors d ON p.primary_physician = d.aadharID
     WHERE p.aadharID = p_patientID;
@@ -26,7 +24,6 @@ BEGIN
             d.dname AS doctor_name,
             p.drug_name,
             p.pcname,
-            prc.formula,
             p.prescription_date,
             p.quantity
         FROM 
