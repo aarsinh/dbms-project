@@ -24,7 +24,7 @@ CREATE OR REPLACE PROCEDURE add_pharmacy (
     p_phone IN VARCHAR2
 ) AS 
 BEGIN
-    INSERT INTO pharmacies (phname, address, phone)
+    INSERT INTO pharmacies (phname, pharma_address, phone)
     VALUES (p_phname, p_address, p_phone);
 
     COMMIT;
