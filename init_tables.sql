@@ -14,13 +14,13 @@ CREATE TABLE patients (
     age INTEGER NOT NULL,
     home_address VARCHAR2(50) NOT NULL,
     primary_physician VARCHAR2(12) NOT NULL,
-    FOREIGN KEY(primary_physician) REFERENCES doctors(aadharID)
+    FOREIGN KEY(primary_physician) REFERENCES doctors(aadharID) ON DELETE CASCADE 
 );
 
 -- Create pharmacies table
 CREATE TABLE pharmacies (
     phname VARCHAR2(50) PRIMARY KEY NOT NULL,
-    address VARCHAR2(50) NOT NULL,
+    pharma_address VARCHAR2(50) NOT NULL,
     phone VARCHAR2(50) NOT NULL
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE drugs (
     pcname VARCHAR2(50) NOT NULL,
     formula VARCHAR2(50) NOT NULL,
     PRIMARY KEY(trdname, pcname),
-    FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname)
+    FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname) ON DELETE CASCADE
 );
 
 -- Create consults table(relship between patient and doctor)
@@ -44,8 +44,8 @@ CREATE TABLE consultations (
     doctorID VARCHAR2(12) NOT NULL,
     patientID VARCHAR2(12) NOT NULL,
     PRIMARY KEY(doctorID, patientID),
-    FOREIGN KEY(doctorID) REFERENCES doctors(aadharID),
-    FOREIGN KEY(patientID) REFERENCES patients(aadharID)
+    FOREIGN KEY(doctorID) REFERENCES doctors(aadharID) ON DELETE CASCADE,
+    FOREIGN KEY(patientID) REFERENCES patients(aadharID) ON DELETE CASCADE
 );
 
 -- Create prescriptions table(relship between patient, drug, doctor)
@@ -57,9 +57,9 @@ CREATE TABLE prescriptions (
     prescription_date DATE NOT NULL,
     quantity INTEGER NOT NULL, 
     PRIMARY KEY(doctorID, patientID, drug_name, pcname),
-    FOREIGN KEY(doctorID) REFERENCES doctors(aadharID),
-    FOREIGN KEY(patientID) REFERENCES patients(aadharID),
-    FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname)
+    FOREIGN KEY(doctorID) REFERENCES doctors(aadharID) ON DELETE CASCADE,
+    FOREIGN KEY(patientID) REFERENCES patients(aadharID) ON DELETE CASCADE,
+    FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE
 );
 
 -- Create drug sales table(relationship between pharma and drug)
@@ -69,8 +69,8 @@ CREATE TABLE drug_sales (
     pcname VARCHAR2(50) NOT NULL,
     drug_price DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY(phname, drug_name, pcname),
-    FOREIGN KEY (phname) REFERENCES pharmacies(phname),
-    FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname)
+    FOREIGN KEY (phname) REFERENCES pharmacies(phname) ON DELETE CASCADE,
+    FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE
 );
 
 -- Create contracts table(relship between pc and pharma)
@@ -82,6 +82,6 @@ CREATE TABLE contracts (
     content VARCHAR2(1000) NOT NULL,
     supervisorID VARCHAR2(50) NOT NULL,
     PRIMARY KEY (pcname, phname),
-    FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname),
-    FOREIGN KEY (phname) REFERENCES pharmacies(phname)
+    FOREIGN KEY(pcname) REFERENCES pharma_companies(pcname) ON DELETE CASCADE,
+    FOREIGN KEY (phname) REFERENCES pharmacies(phname) ON DELETE CASCADE
 );
