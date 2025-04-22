@@ -26,10 +26,12 @@ BEGIN
         ORDER BY 
             p.prescription_date
     ) LOOP
-        DBMS_OUTPUT.PUT_LINE('--- Prescription Details for ' || rec.pname || ' ---');
+        DBMS_OUTPUT.PUT_LINE('--- Prescription Details ---');
         DBMS_OUTPUT.PUT_LINE('Date          : ' || TO_CHAR(rec.prescription_date, 'DD-MON-YYYY'));
         DBMS_OUTPUT.PUT_LINE('Doctor ID     : ' || rec.doctorID);
         DBMS_OUTPUT.PUT_LINE('Doctor Name   : ' || rec.doctor_name);
+        DBMS_OUTPUT.PUT_LINE('Patient ID     : ' || p_patientID);
+        DBMS_OUTPUT.PUT_LINE('Patient Name   : ' || rec.pname);
         DBMS_OUTPUT.PUT_LINE('Drug Name     : ' || rec.drug_name);
         DBMS_OUTPUT.PUT_LINE('Quantity      : ' || rec.quantity);
         DBMS_OUTPUT.PUT_LINE('----------------------------');
