@@ -67,6 +67,7 @@ CREATE TABLE drug_sales (
     drug_name VARCHAR2(50) NOT NULL,
     pcname VARCHAR2(50) NOT NULL,
     drug_price DECIMAL(10, 2) NOT NULL,
+    quantity INTEGER NOT NULL,
     PRIMARY KEY(phname, drug_name, pcname),
     FOREIGN KEY (phname) REFERENCES pharmacies(phname) ON DELETE CASCADE,
     FOREIGN KEY(drug_name, pcname) REFERENCES drugs(trdname, pcname) ON DELETE CASCADE

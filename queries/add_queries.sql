@@ -142,11 +142,12 @@ CREATE OR REPLACE PROCEDURE add_drug_sale(
     p_phname IN VARCHAR2,
     p_drug_name IN VARCHAR2,
     p_pcname IN VARCHAR2,
-    p_drug_price IN DECIMAL
+    p_drug_price IN DECIMAL,
+    p_drug_quantity IN INTEGER
 ) AS
 BEGIN
-    INSERT INTO drug_sales(phname, drug_name, pcname, drug_price) 
-    VALUES (p_phname, p_drug_name, p_pcname, p_drug_price);
+    INSERT INTO drug_sales(phname, drug_name, pcname, drug_price, quantity) 
+    VALUES (p_phname, p_drug_name, p_pcname, p_drug_price, p_drug_quantity);
 
     COMMIT;
 EXCEPTION
