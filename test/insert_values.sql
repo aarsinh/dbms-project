@@ -40,6 +40,8 @@ EXEC add_consultation('123456789004', '987654321004');
 EXEC add_consultation('123456789005', '987654321005');
 
 EXEC add_prescription('123456789001', '987654321001', 'Aspirin', 'PharmaCo', TO_DATE('2025-04-19', 'YYYY-MM-DD'), 30);
+EXEC add_prescription('123456789003', '987654321001', 'Aspirin', 'PharmaCo', TO_DATE('2025-04-21', 'YYYY-MM-DD'), 40);
+EXEC add_prescription('123456789002', '987654321001', 'Aspirin', 'PharmaCo', TO_DATE('2025-04-25', 'YYYY-MM-DD'), 50);
 EXEC add_prescription('123456789002', '987654321002', 'Paracetamol', 'Medica Ltd', TO_DATE('2025-04-20', 'YYYY-MM-DD'), 20);
 EXEC add_prescription('123456789003', '987654321003', 'Ibuprofen', 'BioPharm', TO_DATE('2025-04-21', 'YYYY-MM-DD'), 15);
 EXEC add_prescription('123456789004', '987654321004', 'Amoxicillin', 'HealthCorp', TO_DATE('2025-04-22', 'YYYY-MM-DD'), 10);
