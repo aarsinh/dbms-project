@@ -24,12 +24,16 @@ EXEC add_pharma_company('HealthCorp', '555-8901');
 EXEC add_pharma_company('CureCo', '555-9012');
 
 EXEC add_drug('Aspirin', 'PharmaCo', 'C9H8O4');
+EXEC add_drug('Levocet', 'PharmaCo', 'C10H11');
+EXEC add_drug('Drug 3', 'PharmaCo', 'C14H20O24');
+EXEC add_drug('Drug 4', 'Medica Ltd', 'C11H19N20');
 EXEC add_drug('Paracetamol', 'Medica Ltd', 'C8H9NO2');
 EXEC add_drug('Ibuprofen', 'BioPharm', 'C13H18O2');
 EXEC add_drug('Amoxicillin', 'HealthCorp', 'C16H19N3O5S');
 EXEC add_drug('Cetirizine', 'CureCo', 'C21H25ClN2O3');
 
 EXEC add_consultation('123456789001', '987654321001');
+EXEC add_consultation('123456789001', '987654321002')
 EXEC add_consultation('123456789002', '987654321002');
 EXEC add_consultation('123456789003', '987654321003');
 EXEC add_consultation('123456789004', '987654321004');
@@ -41,11 +45,11 @@ EXEC add_prescription('123456789003', '987654321003', 'Ibuprofen', 'BioPharm', T
 EXEC add_prescription('123456789004', '987654321004', 'Amoxicillin', 'HealthCorp', TO_DATE('2025-04-22', 'YYYY-MM-DD'), 10);
 EXEC add_prescription('123456789005', '987654321005', 'Cetirizine', 'CureCo', TO_DATE('2025-04-23', 'YYYY-MM-DD'), 25);
 
-EXEC add_drug_sale('PharmCity', 'Aspirin', 'PharmaCo', 10.99);
-EXEC add_drug_sale('MediCare Pharmacy', 'Paracetamol', 'Medica Ltd', 5.99);
-EXEC add_drug_sale('HealthPlus', 'Ibuprofen', 'BioPharm', 8.99);
-EXEC add_drug_sale('Wellness Pharm', 'Amoxicillin', 'HealthCorp', 12.99);
-EXEC add_drug_sale('LifeCare Pharmacy', 'Cetirizine', 'CureCo', 7.99);
+EXEC add_drug_sale('PharmCity', 'Aspirin', 'PharmaCo', 10.99, 100);
+EXEC add_drug_sale('MediCare Pharmacy', 'Paracetamol', 'Medica Ltd', 5.99, 100);
+EXEC add_drug_sale('HealthPlus', 'Ibuprofen', 'BioPharm', 8.99, 100);
+EXEC add_drug_sale('Wellness Pharm', 'Amoxicillin', 'HealthCorp', 12.99, 100);
+EXEC add_drug_sale('LifeCare Pharmacy', 'Cetirizine', 'CureCo', 7.99, 100);
 
 EXEC add_contract('PharmaCo', 'PharmCity', TO_DATE('2025-05-01', 'YYYY-MM-DD'), TO_DATE('2026-05-01', 'YYYY-MM-DD'), 'Supply agreement for Aspirin and other medications', 'Super123');
 EXEC add_contract('Medica Ltd', 'MediCare Pharmacy', TO_DATE('2025-05-01', 'YYYY-MM-DD'), TO_DATE('2026-05-01', 'YYYY-MM-DD'), 'Supply agreement for Paracetamol and other medications', 'Super234');

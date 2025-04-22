@@ -1,4 +1,3 @@
-SET SERVEROUTPUT ON;
 -- display drug details of a pharma company
 CREATE OR REPLACE PROCEDURE display_drug_details(p_pcname IN VARCHAR2) AS
     rows INT;
